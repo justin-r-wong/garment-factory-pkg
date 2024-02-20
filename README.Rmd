@@ -1,0 +1,96 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# grp1ProjectPackage
+
+<!-- badges: start -->
+![](https://github.com/DSCI-310/dsci-310-group-01-pkg/actions/workflows/test-coverage.yaml/badge.svg)
+[![Codecov test coverage](https://codecov.io/gh/DSCI-310/dsci-310-group-01-pkg/branch/main/graph/badge.svg)](https://app.codecov.io/gh/DSCI-310/dsci-310-group-01-pkg?branch=main)
+<!-- badges: end -->
+
+The goal of grp1ProjectPackage is to provide user a package for simplifying data pre-processing and doing basic exploratory data analyses. It includes functions for loading data from an html, removing certain columns from a data set, creating boxplots, and splitting data into training and testing sets.
+
+## Installation
+
+You can install the development version of grp1ProjectPackage from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("DSCI-310/dsci-310-group-01-pkg")
+```
+
+### Functions Included:
+- `load_data()`
+- `clean_data()`
+- `create_boxplot()`
+- `train_test_split()`
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(grp1ProjectPackage)
+## basic example code
+```
+
+1. Load data from a URL using `load_data()`
+
+```{r load_data, echo=TRUE, error=FALSE, message=FALSE, warning=FALSE}
+data<-load_data("https://7e6cd356-86ad-4874-abc7-3a69bbbc39e6.filesusr.com/ugd/c5a545_c1b17c070c984dfcb14cf1c3bb0b6e67.csv?dn=garments_worker_productivity.csv")
+head(data)
+```
+
+2. Dropping columns with `clean_data()`
+
+For the purpose of demonstration for the rest of the package, we will use a basic data set called `mtcars`. 
+
+```{r dataset, echo=TRUE, warning=FALSE}
+head(mtcars)
+```
+
+Dropping a column named `mpg` from mtcars.
+
+```{r data_cleaning1, warning = FALSE, error = FALSE}
+head(clean_data(mtcars, "mpg"))
+```
+
+As you can see above, the column mpg has been dropped from the data frame.
+
+3. Creating a boxplot using `create_boxplot()`
+
+```{r plot, echo=TRUE, fig.height=5, fig.width=7}
+create_boxplot(mtcars, as.factor(mtcars$cyl), mtcars$mpg, "MPG by No. Cylinders", "No. Cylinders", "mpg")
+```
+
+4. Splitting data into training and testing sets using `train_test_split()`
+
+```{r recipe-scale-center, warning = FALSE, error = FALSE}
+ train_test_split(mtcars, 0.75, "mpg")
+```
+
+## Contributing
+
+We appreciate contributions to the `grp1ProjectPackage` package. Please refer to our [Contributing document](https://github.com/jw327/dsci-310-group-01-pkg/blob/main/CONTRIBUTING.md) and [Code of Conduct](https://github.com/jw327/dsci-310-group-01-pkg/blob/main/CODE_OF_CONDUCT.md) for more information.
+
+## License
+
+This project, developed by Justin Wong, Longfei Guan, and Anirudh Duggal, is licensed under the terms of the MIT license.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

@@ -1,0 +1,105 @@
+---
+title: "grp1_project_package-vignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{project_package-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, message = FALSE, echo = FALSE, error = FALSE}
+library(grp1ProjectPackage)
+```
+
+# Introduction to grp1ProjectPackage
+
+The goal of grp1ProjectPackage is to provide functions for data preprocessing for exploratory data analyses. The grp1ProjectPackage simplifies the following tasks.:
+
+-   Loading data from a URL
+-   Removing certain columns from a data set
+-   Creating a ggplot boxplot
+-   Splitting data into training and testing sets
+
+This document introduces all of the tools mentioned above as well as examples of how to apply them to data frames and use them in different real-world scenarios.
+
+## 1. Load data from a URL using `load_data()`
+
+Data is often stored through URLs on the internet.
+
+The following shows an example of using the `load_data()` function using a URL. A garments factory data set is loaded from the URL with 1197 rows and 15 columns. For details on how to use the function, check out `help(load_data)`.
+
+```{r load_data, warning = FALSE, error = FALSE, echo = FALSE}
+init_data<-load_data("https://7e6cd356-86ad-4874-abc7-3a69bbbc39e6.filesusr.com/ugd/c5a545_c1b17c070c984dfcb14cf1c3bb0b6e67.csv?dn=garments_worker_productivity.csv")
+head(init_data)
+```
+
+## Data: `mtcars`
+
+To demonstate the rest of the package, we will use a simplier data set called `mtcars`. This data set has 11 columns, 32 rows and is documented in `?mtcars`. Note that `mtcars` is a data frame and below is the first 6 rows.
+
+```{r dataset, warning=FALSE, echo = FALSE}
+head(mtcars)
+data <- mtcars
+```
+
+
+# Demonstration of basic functions in grp1ProjectPackage
+
+## 2. Dropping columns with `clean_data()`
+
+Frequently, when dealing with extensive data sets, there may be columns that are unnecessary or unappealing. In that case, you can use the function `clean_data()` to drop those columns. For details on how to use the function, check out `help(clean_data)`.
+
+-   **dropping a single column `qsec` from mtcars**
+
+```{r data_cleaning1, warning = FALSE, error = FALSE}
+head(clean_data(data, "qsec"))
+```
+
+As you can see above, the column qsec has been dropped from the data frame.
+
+-   **dropping multiple columns from mtcars**
+
+```{r data_cleaning2, warning = FALSE, error = FALSE}
+head(clean_data(data, c("mpg","disp","qsec")))
+```
+
+Columns `mpg`, `disp`, and `qsec` have been dropped.
+
+-   **When an inappropriate column name is inputted, an error will occur.**
+
+For instance, if the wrong column name mpf is inputted instead of `mpg`. The function will produce an error.
+
+`clean_data(data, "mpf")` will produce the following message: *"Error in clean_data(data, "mpf") : column names incorrect. Please try again"*
+
+
+## 3. Creating a boxplot using `create_boxplot()`
+
+It is often necessary to have visual representations in order to comprehend data more effectively. Visually displaying data helps to simplify complex problems by transforming data into a more understandable format and showing trends and outliers. A high-quality visualization tells a narrative by eliminating extraneous details and highlighting the crucial informatation.
+
+The following function creates a boxplot from the data given.
+
+For details on how to use the function, check out `help(create_boxplot)`.
+
+```{r plot, warning = FALSE, echo = FALSE,  fig.width = 7, fig.height = 4}
+create_boxplot(mtcars, as.factor(data$cyl), mtcars$mpg, "MPG by No. Cylinders", "No. Cylinders", "mpg")
+```
+A boxplot has been created displaying the MPG by Number of Cylinders.
+
+## 4. Splitting data into training and testing sets using `train_test_split()`
+For many model selection techniques splitting the data into training and testing sets is required.
+
+The following function splits the data into training and testing sets based on the given inputs. 
+
+For details on how to use the function, check out `help(create_boxplot)`.
+```{r recipe-scale-center, warning = FALSE, error = FALSE}
+ train_test_split(mtcars, 0.75, "mpg")
+```
+
+The data set has been randomly split into a training set with 75% of the entries and a testing set with 25% of the data.

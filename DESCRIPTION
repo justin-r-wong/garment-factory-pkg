@@ -1,0 +1,29 @@
+Package: grp1ProjectPackage
+Title: Data Loading, Cleaning, and Preprocessing
+Version: 1.0.0
+Authors@R: c(
+    person("Justin", "Wong", , "jwong258@student.ubc.ca", role = c("aut", "cre")),
+    person("Longfei", "Guan", ,"kimguanlongfei@gmail.com",  role = "aut"),
+    person("Anirudh", "Duggal", ,"anirudh.duggal.ad.AD@gmail.com",  role = "aut")
+  )
+Description: A package for simplifying data pre-processing and exploratory data 
+    analyses. Includes functions for loading data, cleaning data, creating boxplots, and splitting data.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Suggests: 
+    covr,
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+Remotes: 
+    rstudio/ggcheck
+Config/testthat/edition: 3
+Imports: 
+    dplyr,
+    ggplot2,
+    utils,
+    readr
+VignetteBuilder: knitr
+URL: https://DSCI-310.github.io/dsci-310-group-01-pkg/
